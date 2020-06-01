@@ -1,12 +1,13 @@
 class Solution:
-    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+    def topKFrequent(self, words, k):
         import heapq
-        from collections import Counter
-        count = Counter(words)
-        heap = [(-freq, word) for word, freq in count.items()]
+        import collections
+        count = collections.Counter(words)
+        print(count)
+        heap = [(-fre,word) for (word,fre) in count.items()]
         heapq.heapify(heap)
-        return [heapq.heappop(heap)[1] for _ in range(k)]
+        return [heapq.heappop(heap)[1] for _ in range(0, k)]
 
 
-words=["I","love","leetcode","I","love","faker"]
-Solution().topKFrequent(words,2)
+words = ["I", "love", "leetcode", "I", "love", "faker"]
+print(Solution().topKFrequent(words, 2))

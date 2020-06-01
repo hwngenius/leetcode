@@ -36,3 +36,5 @@ class Solution(object):
                 if nei not in done:
                     queue.append((nei, d+1))
                     done.add(nei)
+
+print(Solution().shortestBridge([[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]]))
