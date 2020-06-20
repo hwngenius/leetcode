@@ -1,28 +1,33 @@
 class Solution:
     def networkDelayTime(self, times, N, K):
-        vis = [False] * (N + 1)
-        dist = [100000000] * (N + 1)
-        dist[K] = 0
-        for i in range(N):
-            u, MIN = -1, 100000000
-            for j in range(1, N + 1):
-                if dist[j] < MIN and vis[j] is False:
-                    MIN = dist[j]
-                    u = j
+        vis = [False] * (N+1)
+        dist = [float('inf')] * (N+1)
+        from collections import defaultdict
+        graph = defaultdict(dict)
+        for u, v, w in times:
+            graph[u][v] = w
+        dist[K]=0
+        for _ in range(N):
+            u, MIN = -1, float('inf')
+            for i in range(1,N+1):
+                if dist[i] < MIN and vis[i] is not True:
+                    MIN = dist[i]
+                    u = i
             if u == -1:
-                break;
+                break
             vis[u] = True
-            for time in times:
-                if time[0] == u:
-                    if dist[time[1]] > dist[u] + time[2]:
-                        dist[time[1]] = dist[u] + time[2]
+            for nei, cost in graph[u].items():
+                new_cost = cost + dist[u]
+                if new_cost < dist[nei] and vis[nei] == False:
+                    dist[nei]=new_cost
+
 
         ans = max(dist[1:N + 1])
-        return ans if ans != 100000000 else -1
+        return ans if ans != float('inf') else -1
 
 
-times = [[2, 1, 1], [2, 3, 1], [3, 4, 1]]
-N = 4
+times = [[1,2,1],[2,1,3]]
+N = 2
 K = 2
 print(Solution().networkDelayTime(times, N, K))
 

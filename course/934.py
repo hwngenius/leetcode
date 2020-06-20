@@ -1,3 +1,6 @@
+import collections
+
+
 class Solution(object):
     def shortestBridge(self, A):
         R, C = len(A), len(A[0])
@@ -37,4 +40,4 @@ class Solution(object):
                     queue.append((nei, d+1))
                     done.add(nei)
 
-print(Solution().shortestBridge([[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]]))
+print(Solution().shortestBridge([[1,0],[0,1]]))
