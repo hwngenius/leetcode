@@ -1,26 +1,33 @@
-import collections
-from typing import List
-import copy
-
-
 class Solution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
-        words_count = collections.Counter(words)
-        ans = []
-        if len(s) == 0 or len(words)==0:
-            return []
-        left, right = 0, len(words[0]) * len(words)
-        while right<=len(s):
-            words_count_t = copy.deepcopy(words_count)
-            for i in range(left, right, len(words[0])):
-                if s[i:i + len(words[0])] in words_count_t:
-                    words_count_t[s[i:i + len(words[0])]] -= 1
-                    if words_count_t[s[i:i + len(words[0])]] == 0:
-                        words_count_t.pop(s[i:i + len(words[0])])
+        from collections import Counter
+        if not s or not words:return []
+        one_word = len(words[0])
+        word_num = len(words)
+        n = len(s)
+        if n < one_word:return []
+        words = Counter(words)
+        res = []
+        for i in range(0, one_word):
+            cur_cnt = 0
+            left = i
+            right = i
+            cur_Counter = Counter()
+            while right + one_word <= n:
+                w = s[right:right + one_word]
+                right += one_word
+                if w not in words:
+                    left = right
+                    cur_Counter.clear()
+                    cur_cnt = 0
                 else:
-                    break
-            if len(words_count_t) == 0:
-                ans.append(left)
-            left += 1
-            right += 1
-        return ans
+                    cur_Counter[w] += 1
+                    cur_cnt += 1
+                    while cur_Counter[w] > words[w]:
+                        left_w = s[left:left+one_word]
+                        left += one_word
+                        cur_Counter[left_w] -= 1
+                        cur_cnt -= 1
+                    if cur_cnt == word_num :
+                        res.append(left)
+        return res
