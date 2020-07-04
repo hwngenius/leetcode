@@ -1,2 +1,2 @@
 # leetcode
-leetcode每日一题
+leetcode 算法

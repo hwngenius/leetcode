@@ -20,13 +20,13 @@ class Solution:
         return h.next
 
 
-l1 = ListNode(1)
-l1.next = ListNode(2)
-l1.next.next = ListNode(4)
-l2 = ListNode(1)
-l2.next = ListNode(3)
-l2.next.next = ListNode(4)
-l = Solution().mergeTwoLists(l1, l2)
-while l:
-    print(l.val)
-    l = l.next
+# 执行用时：
+# 44 ms
+# , 在所有 Python3 提交中击败了
+# 80.12%
+# 的用户
+# 内存消耗：
+# 13.4 MB
+# , 在所有 Python3 提交中击败了
+# 7.14%
+# 的用户
