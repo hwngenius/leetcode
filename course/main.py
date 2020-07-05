@@ -1,15 +1,26 @@
-import collections
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-
-class Solution(object):
-    def uniqueLetterString(self, S):
-        index = collections.defaultdict(list)
-        for i, c in enumerate(S):
-            index[c].append(i)
-
-        ans = 0
-        for A in index.values():
-            A = [-1] + A + [len(S)]
-            for i in xrange(1, len(A) - 1):
-                ans += (A[i] - A[i-1]) * (A[i+1] - A[i])
-        return ans % (10**9 + 7)
+class Solution:
+    def maxPathSum(self, root: TreeNode) -> int:
+        global ans
+        if root is None:
+            return ans
+        def myfun(root:TreeNode)->int:
+            global ans
+            if root is None:
+                return 0
+            left_child=myfun(root.left)
+            right_child=myfun(root.right)
+            res=root.val
+            if left_child>0:
+                res+=left_child
+            if right_child>0:
+                res+=right_child
+            ans=max(ans,res)
+            return res
+        myfun(root)
+        return ans
