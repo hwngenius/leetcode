@@ -1,2 +1,5 @@
 143
 327 binary search
+494 Dynatic
+215 堆排序，快排
+309
